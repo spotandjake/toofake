@@ -25,8 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("------------------")
             console.log("request memories success");
             console.log(response.data);
-            console.log("------------------")
-            
+            console.log("------------------");
             res.status(200).json(response.data);
         }
     ).catch(

@@ -27,7 +27,7 @@ const isMemoryImage = (
     return false;
   return true;
 };
-export interface Memory {
+interface RawMemory {
   id: string;
   thumbnail: MemoryImage;
   primary: MemoryImage;
@@ -36,7 +36,7 @@ export interface Memory {
   memoryDay: string;
   location: { latitude: number; longitude: number } | undefined;
 }
-const isMemory = (maybeMemory: unknown): maybeMemory is Memory => {
+const isRawMemory = (maybeMemory: unknown): maybeMemory is RawMemory => {
   if (typeof maybeMemory != 'object' || maybeMemory == null) return false;
   if (!('id' in maybeMemory) || typeof (maybeMemory as any).id != 'string')
     return false;
@@ -82,6 +82,9 @@ const isMemory = (maybeMemory: unknown): maybeMemory is Memory => {
   }
   return true;
 };
+export interface Memory extends Omit<RawMemory, 'memoryDay'> {
+  memoryDay: Date;
+}
 // TooFake
 export default class TooFake {
   private token: string | null = null;
@@ -123,10 +126,10 @@ export default class TooFake {
     // Parse Memories
     const memories: Memory[] = [];
     for (const memory of rawMemories.data as unknown[]) {
-      if (!isMemory(memory)) {
+      if (!isRawMemory(memory)) {
         return 'Invalid Data From Memories Request';
       }
-      memories.push(memory);
+      memories.push({ ...memory, memoryDay: new Date(memory.memoryDay) });
     }
     return memories;
   }

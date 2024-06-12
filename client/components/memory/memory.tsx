@@ -28,6 +28,7 @@ const Memory = ({ memory }: Props) => {
         id={`switchPrimary_${memory.id}`}
       ></input>
       <div>
+        {/* TODO: Make the secondary image draggable */}
         <div className={styles.primary}>
           <Image
             src={memory.primary.url}
@@ -48,7 +49,7 @@ const Memory = ({ memory }: Props) => {
       <div className={styles.info}>
         <span>
           Taken {memory.isLate ? 'late' : 'on time'},{' '}
-          {new Date(memory.memoryDay).toLocaleDateString(
+          {memory.memoryDay.toLocaleDateString(
             undefined,
             dateFormatOptions
           )}
