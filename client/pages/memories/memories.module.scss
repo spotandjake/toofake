@@ -5,25 +5,76 @@
   flex-wrap: wrap;
 }
 
-// .download {
-//     padding-top: 40px;
-//     button {
-//         cursor: pointer;
-//         font-size: 16px;
-//         font-weight: 500;
-//         height: 34px;
-//         width: 200px;
-//         border-radius: 8px;
-//         background-color: white;
-//         border: none;
-//         margin-top: 20px;
-//     }
+// TODO: Move this to a general component / global css
+.button {
+  display: block;
+  cursor: pointer;
+  padding: .5rem 2rem;
+  border-radius: .5rem;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  &:hover {
+    background-color: rgba(225, 225, 225);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+}
 
-//     .canvas {
-//         display: none;
-//     }
+.export {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 2rem;
+  z-index: 2;
+}
 
-//     .error {
-//         color: red;
-//     }
-// }
+.downloadDialog {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.77) 0%,
+    rgba(75, 75, 75, 0.77) 20%
+  );
+  backdrop-filter: blur(5px);
+  & > div {
+    display: flex;
+    flex-direction: column;
+    h2, .button {
+      width: max-content;
+      margin: 2rem auto;
+    }
+    // Modal
+    width: 50%;
+    height: 75%;
+    border-radius: 1rem;
+    padding: 1rem 3rem;
+    margin: auto;
+    color: #fff;
+    background-color: #222;
+  }
+
+  .outerBar {
+    margin-top: 2rem;
+    background-color: #111;
+    border: 1px rgba(75, 75, 75, 0.77) solid;
+    width: 100%;
+    height: .5rem;
+    border-radius: .25rem;
+    overflow: hidden;
+  }
+  .innerBar {
+    display: block;
+    height: 100%;
+    border-radius: .25rem;
+    background-color: #fff;
+  }
+  canvas {
+    display: none;
+  }
+}

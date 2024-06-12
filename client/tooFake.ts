@@ -129,7 +129,9 @@ export default class TooFake {
       if (!isRawMemory(memory)) {
         return 'Invalid Data From Memories Request';
       }
-      memories.push({ ...memory, memoryDay: new Date(memory.memoryDay) });
+      const memoryDay = new Date(memory.memoryDay);
+      memoryDay.setDate(memoryDay.getDate() + 1); // Memory date is one day off for some reason?
+      memories.push({ ...memory, memoryDay: memoryDay });
     }
     return memories;
   }
