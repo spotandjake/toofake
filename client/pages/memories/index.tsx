@@ -23,7 +23,7 @@ export default function Memories() {
   // Render Page
   switch (typeof memories) {
     case 'string':
-      // TODO: Improve Loader / Break into Seperate Component
+      // TODO: Improve Loader / Break into Separate Component
       return (
         <div className={styles.mem}>
           <div className={l.loader}></div>

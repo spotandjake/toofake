@@ -1,71 +1,61 @@
-import styles from "./memory.module.scss";
-import { type Memory } from "@/tooFake";
+import styles from './memory.module.scss';
+import { type Memory } from '@/tooFake';
+import Image from 'next/image';
 
 interface Props {
-  memory: Memory
+  memory: Memory;
 }
 const Memory = ({ memory }: Props) => {
-  return <label key={memory.id}>
-    <input></input>
-    <img src={memory.primary.url}></img>
-    <img src={memory.primary.url}></img>
-    <div></div>
-  </label>
-}
+  // Config
+  // TODO: Move this to a centralized place
+  const dateFormatOptions: any = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  // Component
+  // TODO: Add a Button to allow downloading
+  return (
+    <label
+      className={styles.container}
+      key={memory.id}
+      htmlFor={`switchPrimary_${memory.id}`}
+    >
+      <input
+        type="checkbox"
+        name={`switchPrimary_${memory.id}`}
+        id={`switchPrimary_${memory.id}`}
+      ></input>
+      <div>
+        <div className={styles.primary}>
+          <Image
+            src={memory.primary.url}
+            alt="Primary Image"
+            unoptimized
+            fill
+          ></Image>
+        </div>
+        <div className={styles.secondary}>
+          <Image
+            src={memory.secondary.url}
+            alt="Secondary Image"
+            unoptimized
+            fill
+          ></Image>
+        </div>
+      </div>
+      <div className={styles.info}>
+        <span>
+          Taken {memory.isLate ? 'late' : 'on time'},{' '}
+          {new Date(memory.memoryDay).toLocaleDateString(
+            undefined,
+            dateFormatOptions
+          )}
+        </span>
+      </div>
+    </label>
+  );
+};
 
 export default Memory;
-// export default function Memoire({ memory }: { memory: Memory }) {
-
-//     let [swap, setSwap] = useState<boolean>(false);
-
-//     let date = new Date(memory.date);
-//     let formatOptions: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-//     let [location, setLocation] = useState<string>("");
-
-//     async function getLocation() {
-
-//         if (memory.location == undefined) {
-//             setLocation("No location data");
-//             return;
-//         }
-
-//         let mem = memory;
-
-//         let lat = mem.location!.latitude;
-//         let long = mem.location!.longitude;
-//         console.log(lat, long);
-
-//         try {
-//             console.log("axios started");
-//             let response = await axios.get(
-//                 `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${long},${lat}&outSR=&forStorage=false&f=pjson`
-//             )
-//             console.log(response.data)
-//             setLocation(response.data.address.Match_addr + ", " + response.data.address.City)
-//         } catch (error) {
-//             console.log(error);
-//             setLocation("No location data");
-//         }
-//     }
-//     return (
-//         <div className={s.memory} key={memory.memid}>
-//             <div className={s.details}>
-//                 <div className={s.date}>
-//                     {date.toLocaleDateString(undefined, formatOptions)}
-//                 </div>
-//                 <div className={s.location}>
-//                     {location}
-//                 </div>
-//             </div>
-//             <div className={s.content}>
-//                 <img src={swap ? memory.primary : memory.secondary} className={s.primary} />
-//                 <div className={s.bounds} onClick={() => setSwap(!swap)}>
-//                     <Draggable axis="both" bounds="parent" >
-//                         <img src={swap ? memory.secondary : memory.primary} className={s.secondary} onClick={() => setSwap(!swap)} onMouseDown={(e) => { e.stopPropagation() }} />
-//                     </Draggable>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }

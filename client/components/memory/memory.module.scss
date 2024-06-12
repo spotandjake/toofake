@@ -1,0 +1,47 @@
+$width: 20rem;
+$aspectRatio: 3 / 4;
+.container {
+  // TODO: Lets determine this properly from the parent
+  width: $width;
+  position: relative;
+  input {
+    display: none;
+  }
+  input:not(:checked) ~ div > .primary,
+  input:checked ~ div > .secondary {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  input:not(:checked) ~ div > .secondary,
+  input:checked ~ div > .primary {
+    width: $width / 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5rem;
+    z-index: 1;
+  }
+  .info {
+    height: max-content;
+    width: 100%;
+    padding: 1rem 0.75rem 1.5rem 0.75rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.77) 0%,
+      rgba(75, 75, 75, 0.77) 20%
+    );
+    backdrop-filter: blur(5px);
+  }
+}
+.container,
+.secondary,
+.primary {
+  aspect-ratio: $aspectRatio;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 2px solid white;
+}

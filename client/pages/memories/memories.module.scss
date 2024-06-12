@@ -3,7 +3,9 @@
 }
 
 .memories {
-    display: flex;
+    // TODO: Properly handle this page
+    display: grid;
+    gap: 1rem;
     overflow-x: scroll !important;
 
 
